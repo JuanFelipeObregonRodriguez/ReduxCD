@@ -1,0 +1,13 @@
+import {
+
+    AGREGAR_PRODUCTO,
+    AGREGAR_PRODUCTO_EXITO,
+    AGREGAR_PRODUCTO_ERROR,
+   
+   } from '../types/index'
+
+   export function addNewProduct(product){
+      return ()=> {
+        console.log(product);
+      }
+   }
