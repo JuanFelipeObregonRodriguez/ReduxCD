@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addNewProduct } from "../actions/productsAction";
+import { addNewProductAction } from "../actions/productsAction";
+import { useNavigate } from "react-router-dom";
 
 const NewProduct = () => {
+  const navigate = useNavigate();
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState(0);
 
   const dispatch = useDispatch();
 
   const addProduct = product => {
-    dispatch(addNewProduct(product));
+    dispatch(addNewProductAction(product));
   };
+
+  const loading = useSelector(state => state.products.loading)
+  const error = useSelector(state => state.products.error)
 
   const submitNewProduct = (e) => {
     e.preventDefault();
@@ -23,6 +28,7 @@ const NewProduct = () => {
       nombre,
       precio,
     });
+    navigate('/')
   };
 
   return (
@@ -64,6 +70,13 @@ const NewProduct = () => {
                 agregar
               </button>
             </form>
+
+            {
+              loading ? <p>loading</p> : null
+            }
+            {
+              error ? <p className="alert alert-danger p2 mt-4 text-center">hubo un error</p> : null
+            }
           </div>
         </div>
       </div>
